@@ -1,24 +1,29 @@
 
 class Order {
   Order({
-    this.orderId,
-    this.order,
-    this.orderPrefix,
+    this.userId,
+    this.id,
+    this.title,
+    this.completed,
   });
 
-  int? orderId;
-  int? order;
-  String? orderPrefix;
+  int? userId;
+  int? id;
+  String? title;
+  bool? completed;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-    orderId: json["id"],
-    order: json["order"],
-    orderPrefix: json["order_prefix"],
+    userId: json["userId"],
+    id: json["id"],
+    title: json["title"],
+    completed: json["completed"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": orderId,
-    "order": order,
-    "order_prefix": orderPrefix,
+    "userId": userId,
+    "id": id,
+    "title": title,
+    "completed": completed,
   };
 }
+

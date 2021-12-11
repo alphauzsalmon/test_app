@@ -43,7 +43,7 @@ class OrdersView extends StatelessWidget {
             return ReorderableListView.builder(
               itemCount: state.response.length,
               itemBuilder: (context, index) => Padding(
-                key: Key('${state.response[index].orderId}'),
+                key: Key('${state.response[index].id}'),
                 padding: EdgeInsets.symmetric(
                   vertical: getHeight(10.0),
                   horizontal: getWidth(20.0),
@@ -51,7 +51,7 @@ class OrdersView extends StatelessWidget {
                 child: ListTile(
                   tileColor: Colors.grey,
                   title: Text(
-                    '${state.response[index].order}: ${state.response[index].orderPrefix}',
+                    '${state.response[index].userId}: ${state.response[index].title}',
                     style: Constants.textStyle(
                       getFont(
                         30.0,
@@ -59,7 +59,7 @@ class OrdersView extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'id: ${state.response[index].orderId}',
+                    'id: ${state.response[index].id}',
                     style: Constants.textStyle(
                       getFont(
                         20.0,

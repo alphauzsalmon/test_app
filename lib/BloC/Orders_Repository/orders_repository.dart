@@ -11,7 +11,7 @@ class SampleOrdersRepository extends OrdersRepository {
   @override
   Future<List<Order>> getOrdersFromApi() async {
     try {
-      Response response = await Dio().get(Constants.myLocalHost2);
+      Response response = await Dio().get(Constants.myApi);
       return (response.data as List)
           .map(
             (e) => Order.fromJson(e),
@@ -29,20 +29,8 @@ class SampleOrdersRepository extends OrdersRepository {
     // Step 1. For sorting SuperSets
     for (int i = 1; i < reOrders.length; i++) {
       if (i < reOrders.length - 1) {
-        if (reOrders[i - 1].order == reOrders[i + 1].order) {
-          reOrders[i].order = reOrders[i - 1].order;
-        }
-        if (reOrders[i].order == reOrders[i - 1].order &&
-            reOrders[i - 1].orderPrefix!.isNotEmpty) {
-          reOrders[i].orderPrefix = String.fromCharCode(
-              reOrders[i - 1].orderPrefix!.codeUnitAt(0) + 1);
-        }
-      }
-      if (i == reOrders.length - 1) {
-        if (reOrders[i].order == reOrders[i - 1].order &&
-            reOrders[i - 1].orderPrefix!.isNotEmpty) {
-          reOrders[i].orderPrefix = String.fromCharCode(
-              reOrders[i - 1].orderPrefix!.codeUnitAt(0) + 1);
+        if (reOrders[i - 1].userId == reOrders[i + 1].userId) {
+          reOrders[i].userId = reOrders[i - 1].userId;
         }
       }
     }
@@ -50,33 +38,31 @@ class SampleOrdersRepository extends OrdersRepository {
     // Step 2. For enumeration as order
     for (int i = 0; i < reOrders.length; i++, _order++) {
       if (i < reOrders.length - 1) {
-        if (reOrders[i].order == reOrders[i + 1].order) {
+        if (reOrders[i].userId == reOrders[i + 1].userId) {
           for (int j = i; j < reOrders.length - 1; ++j) {
-            if (reOrders[j].order != reOrders[j + 1].order) {
-              reOrders[j].order = _order;
+            if (reOrders[j].userId != reOrders[j + 1].userId) {
+              reOrders[j].userId = _order;
               i = j;
               break;
             }
-            reOrders[j].order = _order;
+            reOrders[j].userId = _order;
             i = j;
           }
         } else {
-          reOrders[i].order = _order;
+          reOrders[i].userId = _order;
         }
-      } else {
-       reOrders[i].order = _order;
       }
     }
 
     // Post to API
-    reOrders.forEach((element) async {
+    for (int i = 0; i < reOrders.length; i++) {
       try {
         await Dio()
-            .post(Constants.myLocalHost2, data: element);
+            .post(Constants.myLocalHost, data: reOrders[i]);
       } catch (err) {
         throw NetworkError(err);
       }
-    });
+    }
   }
   }
 
