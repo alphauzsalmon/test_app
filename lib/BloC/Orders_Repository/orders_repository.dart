@@ -58,7 +58,7 @@ class SampleOrdersRepository extends OrdersRepository {
     for (int i = 0; i < reOrders.length; i++) {
       try {
         await Dio()
-            .post(Constants.myLocalHost, data: reOrders[i]);
+            .post(Constants.myApi, data: reOrders[i]);
       } catch (err) {
         throw NetworkError(err);
       }
