@@ -4,26 +4,26 @@ class Order {
     this.userId,
     this.id,
     this.title,
-    this.completed,
+    this.body,
   });
 
   int? userId;
   int? id;
   String? title;
-  bool? completed;
+  String? body;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
     userId: json["userId"],
     id: json["id"],
     title: json["title"],
-    completed: json["completed"],
+    body: json["body"],
   );
 
   Map<String, dynamic> toJson() => {
     "userId": userId,
     "id": id,
     "title": title,
-    "completed": completed,
+    "body": body,
   };
 }
 

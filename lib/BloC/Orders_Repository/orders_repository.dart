@@ -51,7 +51,7 @@ class SampleOrdersRepository extends OrdersRepository {
         } else {
           reOrders[i].userId = _order;
         }
-      }
+      } 
     }
 
     // Post to API
