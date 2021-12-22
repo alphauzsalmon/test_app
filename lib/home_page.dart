@@ -61,24 +61,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         onReorder: (int oldIndex, int newIndex) {
-          setState(() {
+           setState(() {
             if (oldIndex < newIndex) {
               newIndex -= 1;
             }
             final Exercise item = _items!.removeAt(oldIndex);
-            _items!.insert(newIndex, item);
+             _items!.insert(newIndex, item);
           });
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Text(
-          "Post",
-          style: TextStyle(fontSize: 20.0),
-        ),
-        onPressed: () {
-          setState(() {
-            fakePostToApi(_items!);
-          });
+          fakePostToApi(_items!);
         },
       ),
     );
